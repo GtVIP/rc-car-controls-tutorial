@@ -20,6 +20,7 @@ float proportional = 0.0;
 const float Kp = 40.0;
 
 float integral = 0.0;
+float error_sum = 0.0;
 int threshold = 3;
 const float Ki = 3.0;
 
@@ -69,10 +70,11 @@ void loop() {
     
     // Integral control
     if (abs(error) < threshold) {   // prevent integral 'windup'
-        integral = Ki*(integral + error);   // accumulate the integral error
+        error_sum = error_sum + error;   // accumulate the integral error
     } else {
         integral = 0;   // zero the integral error if out of bounds
     }
+    integral = Ki*error_sum;    // Scale the accumulated error by Ki
     
     // Set time equal to sum of proportional and integral error
     time = proportional + integral;
