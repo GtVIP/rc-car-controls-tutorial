@@ -36,7 +36,7 @@ void setup() {
 
 void loop() {
     // Read the value from the sensor
-    distance = ultrasonic.MeasureInCentimeters();
+    distance = getDistanceInCentimeters();
     
     // Convert the value to individual decimal digits for display
     for (int i = 3; i >= 0; i--) {
